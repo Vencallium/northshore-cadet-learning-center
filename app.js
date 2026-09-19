@@ -66,14 +66,8 @@ function renderHome() {
             <a class="button secondary" href="#progress">View progress</a>
           </div>
         </div>
-        <aside class="mission-panel" aria-label="Training progress summary">
-          <span>Your training progress</span>
-          <strong>${done} / ${MODULES.length}</strong>
-          <span>modules completed</span>
-          <div class="meter dark"><i style="width:${percentComplete()}%"></i></div>
-          <div class="mission-grid"><div>Leadership</div><div>Aerospace</div><div>Service</div></div>
-        </aside>
       </div>
+      <div class="hero-bottom"><span>VOLUNTEERS. LEADERS. AVIATORS.</span><span>WASHINGTON WING <b>/</b> PACIFIC REGION</span></div>
     </section>
     <section class="meeting-strip" aria-labelledby="invitation-title">
       <div class="meeting-inner">
