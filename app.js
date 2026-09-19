@@ -75,6 +75,14 @@ function renderHome() {
         </aside>
       </div>
     </section>
+    <section class="meeting-strip" aria-labelledby="invitation-title">
+      <div class="meeting-inner">
+        <div><p class="eyebrow">YOU'RE INVITED</p><h2 id="invitation-title">Start with a learning module.</h2></div>
+        <div class="meeting-detail"><span>01</span><div><strong>New cadets</strong><small>Begin with history, core values, and the oath.</small></div></div>
+        <div class="meeting-detail"><span>07</span><div><strong>Ready for inspection</strong><small>Finish with grooming and uniform review.</small></div></div>
+        <a class="text-link" href="#modules">View the training path →</a>
+      </div>
+    </section>
     <section class="page-shell">
       <div class="feature-lead"><div><p class="eyebrow">ONE ACADEMY. THREE HABITS.</p><h2>Purpose in every lesson.</h2></div><p>Build the habits that connect Northshore's three missions: develop leaders, serve when it matters, and explore what is possible.</p></div>
       <div class="mission-cards"><a href="#module/core-values/0"><span>01</span><strong>Develop tomorrow's leaders</strong><small>Leadership, character, fitness, and followership.</small><em>Explore the cadet path →</em></a><a href="#module/customs/0"><span>02</span><strong>Serve when it matters</strong><small>Professional habits for a ready, respectful team.</small><em>Practice customs →</em></a><a href="#module/history/0"><span>03</span><strong>Explore what's possible</strong><small>History, aerospace, and a future without limits.</small><em>Start with history →</em></a></div>
@@ -89,6 +97,15 @@ function renderHome() {
       </div>
       <div class="callout"><span class="callout-icon" aria-hidden="true">◆</span><div><strong>Accuracy first</strong><p>Official Civil Air Patrol publications control. Changing leadership information and unverified paragraph references are clearly marked for staff review.</p></div></div>
     </section>`;
+  const home = main.querySelector(".page-shell");
+  home.insertAdjacentHTML("beforeend", `
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="why-grid">
+        <div class="why-photos"><img src="images/cadet.jpg" alt="Cadets learning together" /><img src="images/volunteer.jpg" alt="Civil Air Patrol volunteer preparing for service" /><small>Learning is stronger when it is shared.</small></div>
+        <div class="why-copy"><p class="eyebrow">WHY NORTHSHORE?</p><h2 id="why-title">Find your people. Discover your potential.</h2><p>Bring curiosity and a willingness to serve. This learning center gives you a clear starting point, practical repetition, and a place to return when you need a refresher.</p><div class="reason-list"><div><b>01</b><span><strong>Leadership through experience</strong>Learn how small, consistent choices build trust.</span></div><div><b>02</b><span><strong>Service with a purpose</strong>Connect every standard to the people it protects.</span></div><div><b>03</b><span><strong>A shared passion for aviation</strong>Explore the mission from the ground to the sky.</span></div></div></div>
+      </div>
+    </section>
+    <section class="recruit-strip"><div class="recruit-inner"><div><p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p><h2>Start your training.</h2></div><a class="button" href="#module/${next.id}/${progress[next.id]?.lesson || 0}">Begin the next lesson →</a></div></section>`);
 }
 
 function renderModules() {
