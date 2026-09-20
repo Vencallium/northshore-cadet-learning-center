@@ -2,6 +2,8 @@
 
 Standalone GitHub Pages site for Civil Air Patrol Northshore Composite Squadron (PCR-WA-068). It is a browser-only training aid for cadets and staff, with seven short lessons, knowledge checks, local progress, glossary search, resources, dark mode, and a no-score Practice Center.
 
+The Drill Guide at `#drill` covers falling in and the Achievement 1 and 2 practical-test command lists. `drill.js` holds the step-by-step study cues. The diagrams are schematic; current CAPP 60-33 and CAPP 60-34 and supervised instruction control.
+
 ## Local preview
 
 ```text

@@ -128,6 +128,50 @@ h3 { font-size: 1.15rem; }
 .progress-ring span { color: var(--muted); font-size: .75rem; }
 .dashboard-strip .progress-ring { --surface: var(--navy-800); --line: rgba(255,255,255,.14); --ink: #fff; --muted: #bcd0e3; }
 
+.drill-home-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding: 1.5rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--blue-500); text-decoration: none; }
+.drill-home-link span { display: grid; gap: .3rem; }
+.drill-home-link small { color: var(--red-600); font-weight: 900; letter-spacing: .13em; }
+.drill-home-link strong { font-family: "Archivo", sans-serif; font-size: 1.35rem; text-transform: uppercase; }
+.drill-home-link em { color: var(--muted); font-style: normal; }
+.drill-home-link > b { color: var(--blue-500); font-size: 2rem; }
+.drill-page { max-width: 1120px; }
+.drill-tabs { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
+.drill-tabs a { padding: .8rem 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); text-decoration: none; font-weight: 800; }
+.drill-tabs a[aria-current="page"] { color: #fff; background: var(--blue-500); border-color: var(--blue-500); }
+.drill-learning-note, .drill-official { padding: 1.5rem; margin-bottom: 2rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold-400); }
+.drill-learning-note strong { font-family: "Archivo", sans-serif; text-transform: uppercase; }
+.drill-learning-note p, .drill-official p, .drill-intro > p { color: var(--muted); }
+.drill-learning-note p { margin-bottom: 0; }
+.drill-intro { max-width: 900px; margin: 2rem 0; }
+.drill-intro h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: .8rem; text-transform: uppercase; }
+.drill-source-note { padding: .8rem 1rem; background: var(--surface-2); border-left: 3px solid var(--blue-500); }
+.drill-count-list { display: grid; gap: .5rem; list-style: none; padding: 0; margin: 1.4rem 0; }
+.drill-count-list li { display: grid; grid-template-columns: 2.5rem 1fr; gap: .8rem; padding: .8rem 1rem; background: var(--surface); border: 1px solid var(--line); line-height: 1.55; }
+.drill-count-list li b { color: var(--blue-500); font-family: "Archivo", sans-serif; }
+.drill-move-list { display: grid; gap: .7rem; }
+.drill-move { background: var(--surface); border: 1px solid var(--line); }
+.drill-move[open] { border-top: 3px solid var(--blue-500); }
+.drill-move summary { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; cursor: pointer; list-style: none; }
+.drill-move summary::-webkit-details-marker { display: none; }
+.drill-move-number { color: var(--red-600); font-family: "Archivo", sans-serif; font-weight: 900; }
+.drill-move summary strong { font-family: "Archivo", sans-serif; font-size: 1.1rem; text-transform: uppercase; }
+.drill-move-hint { margin-left: auto; color: var(--blue-500); font-size: .8rem; font-weight: 800; white-space: nowrap; }
+.drill-move-body { padding: 0 1.2rem 1.2rem; }
+.drill-move-body .drill-count-list { margin-top: .2rem; }
+.foot-diagram { display: inline-grid; justify-items: center; width: min(100%, 390px); margin: 1rem 0; padding: 1rem; background: var(--surface-2); border: 1px solid var(--line); }
+.foot-diagram figcaption { width: 100%; font-family: "Archivo", sans-serif; font-weight: 800; text-transform: uppercase; }
+.foot-diagram svg { display: block; width: min(100%, 300px); height: auto; }
+.foot-diagram p { margin: 0 0 .3rem; font-weight: 800; text-align: center; }
+.foot-diagram small { color: var(--muted); }
+.diagram-foot { fill: var(--blue-500); stroke: #fff; stroke-width: 2; }
+.diagram-label, .diagram-front { fill: #fff; font-family: "Archivo", sans-serif; font-size: 15px; font-weight: 900; }
+.diagram-front { fill: var(--muted); font-size: 12px; }
+.diagram-ground { stroke: var(--line); stroke-width: 2; }
+.drill-official { margin-top: 2.5rem; }
+.drill-official h2 { margin: 0 0 .5rem; font-size: 1.5rem; }
+.drill-official div { display: flex; flex-wrap: wrap; gap: 1rem; }
+.drill-official a { color: var(--blue-500); font-weight: 800; }
+
 .module-hero { color: #fff; background: linear-gradient(135deg, var(--navy-950), var(--navy-800)); }
 .module-hero .page-shell { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 .module-hero .page-title { margin-bottom: .65rem; }
@@ -325,6 +369,9 @@ h3 { font-size: 1.15rem; }
   .resource-grid, .glossary-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 620px) {
+  .drill-move-hint { display: none; }
+  .drill-move summary { gap: .65rem; }
+  .drill-count-list li { grid-template-columns: 1.8rem 1fr; padding: .7rem; }
   .page-shell, .hero-inner, .hero-bottom { width: calc(100% - 40px); }
   .hero-bottom { font-size: .55rem; line-height: 1.6; }
   .hero-bottom span:last-child { display: none; }

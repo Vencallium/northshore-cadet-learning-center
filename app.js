@@ -80,7 +80,38 @@ function renderHome() {
         ${progressRing(percentComplete())}
       </div>
       <div class="callout"><span class="callout-icon" aria-hidden="true">◆</span><div><strong>Accuracy first</strong><p>Official Civil Air Patrol publications control. Changing leadership information and unverified paragraph references are clearly marked for staff review.</p></div></div>
+      <a class="drill-home-link" href="#drill"><span><small>DRILL FIELD GUIDE</small><strong>Achievement 1 & 2 drill, step by step</strong><em>Learn to fall in, practice by the numbers, and see foot positions.</em></span><b aria-hidden="true">→</b></a>
     </section>`;
+}
+
+function drillFootDiagram(kind) {
+  const diagrams = {
+    fallin: ["Finish at attention after dressing", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Heels together · toes equally out"],
+    attention: ["Position of attention · top view", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Heels together · about 45° between feet"],
+    parade: ["Parade rest · top view", [[86, 67, -22, "L"], [186, 67, 22, "R"]], "Left foot out · heels 12 in apart"],
+    about: ["About face · count one", [[111, 60, -22, "L"], [156, 102, 8, "R"]], "Ball of right foot behind and left of left heel"],
+    rightface: ["Right face · count one pivot", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Pivot: ball of LEFT + heel of RIGHT"],
+    cover: ["Cover in column", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Feet end at attention after small alignment steps"],
+    atease: ["At ease", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "RIGHT foot stays in place"],
+    forward: ["Forward march · first step", [[111, 36, -22, "L"], [161, 95, 22, "R"]], "LEFT foot steps off first"],
+    halt: ["Halt · finish", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Trailing foot joins the lead foot"],
+    openranks: ["Open ranks · two elements", [[111, 36, -22, "L"], [161, 36, 22, "R"]], "1st element: 3 paces · 2nd: 2 paces"],
+    rightstep: ["Right step · count one", [[99, 67, -22, "L"], [191, 67, 22, "R"]], "RIGHT foot out 12 in; LEFT foot joins on count two"],
+    flank: ["Flank pivot · then step off", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Right flank: ball of LEFT · left flank: ball of RIGHT"],
+    rear: ["To the rear · pivot", [[111, 67, -22, "L"], [161, 67, 22, "R"]], "Turn right on the balls of BOTH feet"]
+  };
+  if (!diagrams[kind]) return "";
+  const [title, feet, note] = diagrams[kind];
+  return `<figure class="foot-diagram"><figcaption>${title}</figcaption><svg viewBox="0 0 300 170" role="img" aria-label="${title}. ${note}"><text x="150" y="22" text-anchor="middle" class="diagram-front">FRONT ↑</text><line x1="35" y1="132" x2="265" y2="132" class="diagram-ground"/>${feet.map(([x, y, angle, label]) => `<g transform="rotate(${angle} ${x + 12} ${y + 29})"><rect x="${x}" y="${y}" width="24" height="58" rx="9" class="diagram-foot"/><text x="${x + 12}" y="${y + 34}" text-anchor="middle" class="diagram-label">${label}</text></g>`).join("")}</svg><p>${note}</p><small>Not to scale · view from above</small></figure>`;
+}
+
+function renderDrill(id = "fall-in") {
+  const guide = DRILL_GUIDES.find((item) => item.id === id);
+  const selected = guide ? guide.id : "fall-in";
+  const tabs = `<nav class="drill-tabs" aria-label="Drill lessons"><a href="#drill/fall-in" ${selected === "fall-in" ? 'aria-current="page"' : ""}>How to fall in</a>${DRILL_GUIDES.map((item) => `<a href="#drill/${item.id}" ${selected === item.id ? 'aria-current="page"' : ""}>${item.title}</a>`).join("")}</nav>`;
+  const fallIn = `<div class="drill-intro"><p class="eyebrow">First formation skill</p><h2>How to fall in</h2><p>FALL IN forms the flight in line. Watch an instructor establish the guide and element leaders, then use these cues for your place as a cadet in the ranks.</p><ol class="drill-count-list">${FALL_IN_STEPS.map((step, i) => `<li><b>${String(i + 1).padStart(2, "0")}</b><span>${step}</span></li>`).join("")}</ol>${drillFootDiagram("fallin")}<p class="drill-source-note">CAPP 60-33 §4.3.1 explains flight formation. On the Achievement 1 scorecard, FALL IN includes automatic dress and ready front.</p></div>`;
+  const moves = guide ? `<div class="drill-intro"><p class="eyebrow">${guide.subtitle}</p><h2>${guide.title} drill test</h2><p>${guide.setup}</p><p class="drill-source-note">Use “BY THE NUMBERS” to slow a multi-count movement: execute count one on the command of execution, then have the instructor call “Ready, TWO” for count two. Marching beats below are study cues; follow the instructor's command timing and the full manual.</p></div><div class="drill-move-list">${guide.moves.map(([command, counts, feet], i) => `<details class="drill-move" ${i === 0 ? "open" : ""}><summary><span class="drill-move-number">${String(i + 1).padStart(2, "0")}</span><strong>${command}</strong><span class="drill-move-hint">By the numbers ↓</span></summary><div class="drill-move-body"><ol class="drill-count-list">${counts.map((count, j) => `<li><b>${String(j + 1).padStart(2, "0")}</b><span>${count}</span></li>`).join("")}</ol>${drillFootDiagram(feet)}</div></details>`).join("")}</div>` : "";
+  main.innerHTML = `<section class="module-hero drill-hero"><div class="page-shell"><p class="eyebrow">Field-ready study guide</p><h1 class="page-title">Drill by the numbers</h1><p>Build movements slowly, see where the feet go, then practice at normal cadence with your element or flight.</p></div></section><section class="page-shell drill-page">${tabs}<div class="drill-learning-note"><strong>How “by the numbers” works</strong><p>For a two-count movement, the first count happens on the command of execution. The instructor calls <b>Ready, TWO</b> for count two. Continue by the numbers until the instructor says <b>WITHOUT THE NUMBERS</b>. The illustrations are teaching aids, not exact scale drawings.</p></div>${guide ? moves : fallIn}<div class="drill-official"><h2>Practice with the official standard</h2><p>This site is not a scored CAP drill test. A senior-member testing officer evaluates the CAPP 60-34 scorecard. Confirm any difference against the current official publications and your instructor.</p><div><a href="${DRILL_SOURCES.manual}" target="_blank" rel="noopener">CAPP 60-33 · Drill & Ceremonies ↗</a><a href="${DRILL_SOURCES.tests}" target="_blank" rel="noopener">CAPP 60-34 · Practical Tests ↗</a></div></div></section>`;
 }
 
 function renderModules() {
@@ -259,6 +290,7 @@ function render() {
   document.querySelector(`.primary-nav a[href="#${navPage}"]`)?.setAttribute("aria-current", "page");
   if (page === "home") renderHome();
   else if (page === "modules") renderModules();
+  else if (page === "drill") renderDrill(id);
   else if (page === "module") renderModule(id, lesson);
   else if (page === "quiz") renderQuiz(id);
   else if (page === "progress") renderProgress();
