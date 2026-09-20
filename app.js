@@ -33,7 +33,7 @@ function moduleCard(module) {
   const lesson = Math.min(progress[module.id]?.lesson || 0, module.sections.length - 1);
   return `
     <article class="module-card">
-      <div class="module-card-top"><span class="module-number">MODULE ${module.number}</span><span class="module-icon" aria-hidden="true">${module.icon}</span></div>
+      <div class="module-card-top"><span class="module-number">MODULE ${module.number}</span></div>
       <h3>${module.title}</h3>
       <p>${module.description}</p>
       <div class="module-meta">

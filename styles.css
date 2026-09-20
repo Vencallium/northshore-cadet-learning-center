@@ -100,8 +100,6 @@ h3 { font-size: 1.15rem; }
 .module-card h3 { font-size: 1.35rem; margin: .65rem 0; }
 .module-card p { color: var(--muted); margin: 0 0 1rem; }
 .module-card-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.module-icon { display: grid; place-items: center; min-width: 44px; height: 44px; padding: 0 .45rem; border: 1px solid var(--line); border-radius: .65rem; color: var(--navy-700); background: var(--surface-2); font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
-[data-theme="dark"] .module-icon { color: #8fcdf5; }
 .module-meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .86rem; font-weight: 700; }
 .module-meta a { color: var(--navy-700); text-decoration: none; }
 [data-theme="dark"] .module-meta a { color: #76bcea; }
