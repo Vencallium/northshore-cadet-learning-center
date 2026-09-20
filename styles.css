@@ -93,17 +93,6 @@ h3 { font-size: 1.15rem; }
 
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
 .section-heading p { max-width: 620px; margin: 0; color: var(--muted); }
-.feature-lead { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 1.35rem; }
-.feature-lead h2 { margin-bottom: 0; }
-.feature-lead > p { max-width: 530px; margin: 0; color: var(--muted); font-size: 1.05rem; }
-.mission-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-bottom: 4rem; }
-.mission-cards a { display: grid; gap: .45rem; min-height: 210px; padding: 1.25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: inherit; text-decoration: none; box-shadow: 0 8px 26px rgba(5,32,58,.06); transition: transform .2s ease, border-color .2s ease; }
-.mission-cards a:hover { transform: translateY(-3px); border-color: var(--blue-500); }
-.mission-cards span { color: var(--red-600); font-size: .75rem; font-weight: 900; letter-spacing: .13em; }
-.mission-cards strong { font-size: 1.25rem; line-height: 1.2; }
-.mission-cards small { color: var(--muted); font-size: .92rem; }
-.mission-cards em { align-self: end; color: var(--navy-700); font-size: .86rem; font-style: normal; font-weight: 900; }
-[data-theme="dark"] .mission-cards em { color: #8fcdf5; }
 .module-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .module-card { position: relative; display: flex; flex-direction: column; min-height: 290px; padding: 1.35rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 8px 26px rgba(5,32,58,.06); overflow: hidden; }
 .module-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--red-600), var(--blue-500)); }
@@ -305,25 +294,9 @@ h3 { font-size: 1.15rem; }
 .mission-grid div { border-radius: 2px; }
 .hero-bottom { width: min(1320px, calc(100% - 96px)); margin: 0 auto; padding: 18px 0; display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(255,255,255,.13); color: #b8c8dc; font-family: "Archivo", sans-serif; font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; }
 .hero-bottom b { margin: 0 .55rem; color: #c4313c; }
-.meeting-strip { background: var(--surface-2); border-bottom: 1px solid var(--line); }
-.meeting-inner { width: min(1280px, calc(100% - 2rem)); min-height: 132px; margin: 0 auto; padding: 1.6rem 0; display: grid; grid-template-columns: 1.25fr .8fr .8fr auto; align-items: center; gap: 1.5rem; }
-.meeting-inner h2 { margin: 0; font-size: clamp(1.35rem, 2.4vw, 2.1rem); }
-.meeting-inner .eyebrow { margin-bottom: .35rem; color: var(--red-600); }
-.meeting-detail { display: flex; align-items: center; gap: .7rem; }
-.meeting-detail > span { color: var(--blue-500); font-family: "Archivo", sans-serif; font-size: 1.7rem; font-weight: 800; }
-.meeting-detail div { display: grid; gap: .1rem; }
-.meeting-detail strong { font-family: "Archivo", sans-serif; font-size: .86rem; text-transform: uppercase; }
-.meeting-detail small { color: var(--muted); font-size: .78rem; line-height: 1.35; }
 .text-link { color: var(--blue-500); font-family: "Archivo", sans-serif; font-size: .78rem; font-weight: 800; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
 .text-link:hover { color: var(--red-600); }
 .page-shell { width: min(1320px, calc(100% - 96px)); }
-.feature-lead { margin-bottom: 2rem; }
-.feature-lead h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
-.mission-cards { gap: 1rem; }
-.mission-cards a { min-height: 230px; padding: 1.4rem; border-radius: 2px; border-bottom: 3px solid var(--blue-500); box-shadow: none; }
-.mission-cards a:hover { transform: translateY(-2px); border-color: var(--blue-500); }
-.mission-cards span { color: var(--blue-500); }
-.mission-cards strong { font-family: "Archivo", sans-serif; font-size: 1.4rem; text-transform: uppercase; }
 .module-card, .callout, .dashboard-strip, .progress-overview, .progress-list article, .resource-card, .activity-card, .practice-stage { border-radius: 2px; }
 .module-card { box-shadow: none; }
 .module-card::before { height: 3px; background: var(--blue-500); }
@@ -384,8 +357,6 @@ h3 { font-size: 1.15rem; }
   .page-shell, .hero-inner, .hero-bottom { width: calc(100% - 56px); }
   .primary-nav a { padding: .75rem .65rem; margin: 0; }
   .primary-nav a[aria-current="page"]::after { bottom: .35rem; left: .65rem; right: auto; width: 30px; }
-  .meeting-inner { grid-template-columns: 1fr 1fr; }
-  .meeting-inner .text-link { justify-self: start; }
   .why-grid { grid-template-columns: 1fr; }
   .why-photos { max-width: 620px; width: 100%; margin: 0 auto; }
   .recruit-inner { align-items: start; flex-direction: column; }
@@ -401,8 +372,6 @@ h3 { font-size: 1.15rem; }
   .lesson-outline { position: static; grid-template-columns: repeat(2, 1fr); }
   .lesson-outline > span, .lesson-outline .quiz-link { grid-column: 1 / -1; }
   .resource-grid, .glossary-grid { grid-template-columns: repeat(2, 1fr); }
-  .mission-cards { grid-template-columns: 1fr; }
-  .feature-lead { align-items: start; flex-direction: column; gap: .6rem; }
 }
 @media (max-width: 620px) {
   .page-shell, .hero-inner, .hero-bottom { width: calc(100% - 40px); }
@@ -411,8 +380,6 @@ h3 { font-size: 1.15rem; }
   .utility-wrap { align-items: start; padding: .45rem 0; flex-direction: column; gap: .35rem; }
   .utility-actions { width: 100%; justify-content: space-between; }
   .site-header { min-height: 72px; }
-  .meeting-inner { grid-template-columns: 1fr; gap: .9rem; }
-  .meeting-inner .text-link { padding-top: .3rem; }
   .why-photos { min-height: 330px; }
   .why-photos img { width: 61%; }
   .why-photos small { bottom: -1.2rem; }

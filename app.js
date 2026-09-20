@@ -69,17 +69,7 @@ function renderHome() {
       </div>
       <div class="hero-bottom"><span>VOLUNTEERS. LEADERS. AVIATORS.</span><span>WASHINGTON WING <b>/</b> PACIFIC REGION</span></div>
     </section>
-    <section class="meeting-strip" aria-labelledby="invitation-title">
-      <div class="meeting-inner">
-        <div><p class="eyebrow">YOU'RE INVITED</p><h2 id="invitation-title">Start with a learning module.</h2></div>
-        <div class="meeting-detail"><span>01</span><div><strong>New cadets</strong><small>Begin with history, core values, and the oath.</small></div></div>
-        <div class="meeting-detail"><span>07</span><div><strong>Ready for inspection</strong><small>Finish with grooming and uniform review.</small></div></div>
-        <a class="text-link" href="#modules">View the training path →</a>
-      </div>
-    </section>
     <section class="page-shell">
-      <div class="feature-lead"><div><p class="eyebrow">ONE ACADEMY. THREE HABITS.</p><h2>Purpose in every lesson.</h2></div><p>Build the habits that connect Northshore's three missions: develop leaders, serve when it matters, and explore what is possible.</p></div>
-      <div class="mission-cards"><a href="#module/core-values/0"><span>01</span><strong>Develop tomorrow's leaders</strong><small>Leadership, character, fitness, and followership.</small><em>Explore the cadet path →</em></a><a href="#module/customs/0"><span>02</span><strong>Serve when it matters</strong><small>Professional habits for a ready, respectful team.</small><em>Practice customs →</em></a><a href="#module/history/0"><span>03</span><strong>Explore what's possible</strong><small>History, aerospace, and a future without limits.</small><em>Start with history →</em></a></div>
       <div class="section-heading">
         <div><p class="eyebrow">Academy path</p><h2>Seven focused modules</h2></div>
         <p>Work in order or choose the topic you need. Quiz scores and completion stay on this device.</p>
