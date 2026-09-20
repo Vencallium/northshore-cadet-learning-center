@@ -13,6 +13,43 @@ const FALL_IN_STEPS = [
   "When dress, cover, interval, and distance are set, automatically execute Ready, FRONT. Drop the arm, face front, bring heels together, and remain at attention."
 ];
 
+// Each cell is [stage, overhead pose, visual cue]. Poses are schematic, not scale drawings.
+// The scorecard sequence is kept separate from these teaching illustrations.
+const DRILL_SCENES = {
+  fallin: [["Find your place", "line", "Join an open slot left of the element leader"], ["Dress and cover", "align", "Look right; line up with neighbors and the cadet ahead"], ["Ready front", "attention", "Arms down; face front at attention"]],
+  parade: [["Attention", "attention", "Heels together"], ["Parade rest", "wide", "LEFT foot moves out; right foot stays planted"]],
+  salute: [["Attention", "attention", "Feet remain still"], ["Salute", "salute", "RIGHT hand rises; body stays facing front"]],
+  order: [["Salute", "salute", "Hold position"], ["Order arms", "attention", "RIGHT hand returns to the side"]],
+  about: [["Start", "attention", "Face front"], ["Count one", "aboutSet", "RIGHT ball behind/left of LEFT heel"], ["Count two", "rear", "Pivot RIGHT 180°: RIGHT ball + LEFT heel"]],
+  dress: [["Start", "line", "Stay in your rank"], ["Dress right", "align", "LEFT arm out; head 45° right; adjust"], ["Hold", "align", "Align shoulder to fingertip"]],
+  ready: [["Dress right", "align", "Arm extended and eyes right"], ["Ready front", "attention", "Arm down; eyes front; feet at attention"]],
+  rightface: [["Start", "attention", "Face front"], ["Count one", "rightTurn", "Pivot RIGHT 90°: LEFT ball + RIGHT heel"], ["Count two", "right", "LEFT foot joins RIGHT"]],
+  cover: [["Before", "offset", "You are out of line with the cadet ahead"], ["Adjust", "column", "Small steps put you directly behind"], ["Finish", "column", "Hold correct distance and interval"]],
+  atease: [["Attention", "attention", "Both heels together"], ["At ease", "relaxed", "RIGHT foot stays planted; stay in place and silent"]],
+  attention: [["At ease", "relaxed", "RIGHT foot stays in place"], ["Flight", "wide", "Assume parade rest"], ["Attention", "attention", "LEFT foot joins RIGHT"]],
+  handsalute: [["Start", "attention", "Feet stay still"], ["Count one", "salute", "RIGHT hand to brow/headgear"], ["Count two", "attention", "Hand returns to side"]],
+  eyes: [["Front", "attention", "Body faces front"], ["Eyes right", "eyesRight", "Only head and eyes turn 45° right"]],
+  eyesfront: [["Eyes right", "eyesRight", "Feet and shoulders stay front"], ["Ready front", "attention", "Head and eyes return front"]],
+  fallout: [["In ranks", "line", "Stay at attention until FALL OUT"], ["Fall out", "disperse", "Break ranks or relax; remain nearby"]],
+  forward: [["At halt", "attention", "Wait for MARCH"], ["First step", "leftForward", "LEFT foot steps off"], ["Cadence", "march", "Alternate feet, keeping alignment"]],
+  double: [["Quick time", "march", "Normal step and arm swing"], ["One more step", "march", "Complete one quick-time step"], ["Double time", "run", "Increase pace; maintain formation"]],
+  quick: [["Double time", "run", "Continue running"], ["Two more steps", "run", "Complete two double-time steps"], ["Quick time", "march", "Resume normal step and arm swing"]],
+  halt: [["Marching", "march", "Hear HALT on a foot strike"], ["One more step", "leftForward", "Take one more full step"], ["Halt", "attention", "Trailing foot joins; heels together"]],
+  openranks: [["Two ranks", "ranks", "Both ranks aligned"], ["Open", "openRanks", "Front rank: 3 paces; second: 2"], ["Dress", "openRanks", "Both ranks halt and dress right"]],
+  closeranks: [["Open ranks", "openRanks", "Front rank stands fast"], ["Close", "ranks", "Second rank: 1 pace forward"], ["Finish", "ranks", "Return to normal distance"]],
+  rightstep: [["Start", "attention", "Heels together"], ["Count one", "rightOut", "RIGHT foot 12 in to the side"], ["Count two", "shiftRight", "LEFT foot joins; repeat in cadence"]],
+  sidestophalt: [["Side stepping", "rightOut", "Hear HALT when heels meet"], ["One more", "rightOut", "RIGHT foot takes one more step"], ["Finish", "shiftRight", "LEFT foot joins at attention"]],
+  rightflank: [["March", "march", "MARCH as RIGHT heel strikes"], ["Pivot", "pivotRight", "One more step; pivot RIGHT on LEFT ball"], ["Step off", "rightMarch", "RIGHT foot moves in new direction"]],
+  leftflank: [["March", "march", "MARCH as LEFT heel strikes"], ["Pivot", "pivotLeft", "One more step; pivot LEFT on RIGHT ball"], ["Step off", "leftMarch", "LEFT foot moves in new direction"]],
+  cadence: [["March", "march", "Keep the marching rhythm"], ["Sound off", "march", "Count 1–2–3–4 aloud with steps"]],
+  rear: [["March", "march", "MARCH as RIGHT heel strikes"], ["12-in step", "rearSet", "LEFT foot ahead, in line with RIGHT"], ["Pivot", "rearPivot", "Turn RIGHT 180° on BOTH balls"], ["New direction", "rearMarch", "LEFT 12-in step, then RIGHT full step"]]
+};
+
+const DRILL_SCENE_KEYS = {
+  "achievement-1": ["fallin", "parade", "salute", "order", "about", "dress", "ready", "rightface", "cover", "atease", "attention", "handsalute", "eyes", "eyesfront", "fallout"],
+  "achievement-2": ["forward", "double", "quick", "halt", "openranks", "ready", "closeranks", "rightstep", "sidestophalt", "forward", "rightflank", "leftflank", "cadence", "rear", "halt"]
+};
+
 // Each entry follows the CAPP 60-34 scorecard order. Counts are instructional cues,
 // not a substitute for the command's formal timing in CAPP 60-33.
 const DRILL_GUIDES = [

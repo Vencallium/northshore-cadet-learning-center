@@ -167,6 +167,29 @@ h3 { font-size: 1.15rem; }
 .diagram-label, .diagram-front { fill: #fff; font-family: "Archivo", sans-serif; font-size: 15px; font-weight: 900; }
 .diagram-front { fill: var(--muted); font-size: 12px; }
 .diagram-ground { stroke: var(--line); stroke-width: 2; }
+.formation-diagram, .drill-sequence { margin: 1.4rem 0; padding: 1rem; background: var(--surface-2); border: 1px solid var(--line); }
+.formation-diagram figcaption, .drill-sequence figcaption { margin-bottom: .8rem; font-family: "Archivo", sans-serif; font-weight: 900; text-transform: uppercase; }
+.formation-diagram svg { display: block; width: min(100%, 600px); margin: auto; }
+.formation-diagram p { max-width: 75ch; line-height: 1.55; }
+.formation-diagram small, .drill-sequence small { color: var(--muted); }
+.formation-cadet { fill: var(--blue-500); stroke: #fff; stroke-width: 2; }
+.formation-you { fill: var(--gold-400); }
+.formation-facing { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; }
+.formation-diagram svg text:not(.formation-direction):not(.formation-caption) { fill: #fff; font: 700 9px "Archivo", sans-serif; }
+.formation-direction, .formation-caption, .scene-front { fill: var(--muted); font: 800 11px "Archivo", sans-serif; }
+.formation-guide-line { fill: none; stroke: var(--gold-400); stroke-width: 2; stroke-dasharray: 5 6; opacity: .8; }
+.drill-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .7rem; margin-bottom: .8rem; }
+.drill-frame { min-width: 0; padding: .7rem; background: var(--surface); border: 1px solid var(--line); }
+.drill-frame strong { display: block; font-family: "Archivo", sans-serif; font-size: .9rem; text-transform: uppercase; }
+.drill-frame strong span { color: var(--blue-500); margin-right: .3rem; }
+.drill-frame svg { display: block; width: min(100%, 230px); margin: .3rem auto; }
+.drill-frame p { margin: .3rem 0 0; color: var(--muted); font-size: .9rem; line-height: 1.4; }
+.scene-foot { fill: var(--blue-500); stroke: #fff; stroke-width: 1.5; }
+.scene-foot-label { fill: #fff; font: 900 12px "Archivo", sans-serif; }
+.scene-facing { fill: none; stroke: var(--gold-400); stroke-width: 3; stroke-linecap: round; }
+.scene-pivot { fill: var(--gold-400); stroke: var(--surface); stroke-width: 2; }
+.scene-pivot-label { fill: var(--gold-400); font: 900 10px "Archivo", sans-serif; }
+.scene-action { fill: none; stroke: var(--gold-400); stroke-width: 2.5; }
 .drill-official { margin-top: 2.5rem; }
 .drill-official h2 { margin: 0 0 .5rem; font-size: 1.5rem; }
 .drill-official div { display: flex; flex-wrap: wrap; gap: 1rem; }
