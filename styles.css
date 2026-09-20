@@ -172,11 +172,19 @@ h3 { font-size: 1.15rem; }
 .formation-diagram svg { display: block; width: min(100%, 600px); margin: auto; }
 .formation-diagram p { max-width: 75ch; line-height: 1.55; }
 .formation-diagram small, .drill-sequence small { color: var(--muted); }
+.formation-example-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem; }
+.formation-example-controls button { padding: .6rem .8rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); cursor: pointer; font: inherit; font-weight: 800; }
+.formation-example-controls button.active, .formation-example-controls button:hover { color: #fff; background: var(--blue-500); border-color: var(--blue-500); }
+.formation-example-result { padding: .75rem 1rem; background: var(--surface); border-left: 3px solid var(--gold-400); font-weight: 800; }
 .formation-cadet { fill: var(--blue-500); stroke: #fff; stroke-width: 2; }
 .formation-you { fill: var(--gold-400); }
+.formation-extra { fill: var(--gold-400); }
+.formation-sergeant { fill: var(--red-600); }
+.formation-guide { fill: var(--navy-800); stroke: var(--gold-400); }
 .formation-facing { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; }
 .formation-diagram svg text:not(.formation-direction):not(.formation-caption) { fill: #fff; font: 700 9px "Archivo", sans-serif; }
 .formation-direction, .formation-caption, .scene-front { fill: var(--muted); font: 800 11px "Archivo", sans-serif; }
+.formation-diagram svg .formation-row-label { fill: var(--muted) !important; font: 800 10px "Archivo", sans-serif !important; }
 .formation-guide-line { fill: none; stroke: var(--gold-400); stroke-width: 2; stroke-dasharray: 5 6; opacity: .8; }
 .drill-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .7rem; margin-bottom: .8rem; }
 .drill-frame { min-width: 0; padding: .7rem; background: var(--surface); border: 1px solid var(--line); }

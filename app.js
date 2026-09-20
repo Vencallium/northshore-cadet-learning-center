@@ -105,10 +105,39 @@ function drillFootDiagram(kind) {
   return `<figure class="foot-diagram"><figcaption>${title}</figcaption><svg viewBox="0 0 300 170" role="img" aria-label="${title}. ${note}"><text x="150" y="22" text-anchor="middle" class="diagram-front">FRONT ↑</text><line x1="35" y1="132" x2="265" y2="132" class="diagram-ground"/>${feet.map(([x, y, angle, label]) => `<g transform="rotate(${angle} ${x + 12} ${y + 29})"><rect x="${x}" y="${y}" width="24" height="58" rx="9" class="diagram-foot"/><text x="${x + 12}" y="${y + 34}" text-anchor="middle" class="diagram-label">${label}</text></g>`).join("")}</svg><p>${note}</p><small>Not to scale · view from above</small></figure>`;
 }
 
+function drillFormationExample(elements, total) {
+  // The guide is separate. Total includes the flight sergeant in the final formation.
+  const fullFiles = Math.floor(total / elements);
+  const extras = total % elements;
+  const rowCounts = Array.from({ length: elements }, (_, row) => fullFiles + (row >= elements - extras ? 1 : 0));
+  const cadet = (x, y, label, kind = "") => `<g><circle cx="${x}" cy="${y}" r="15" class="formation-cadet ${kind}"/><path d="M${x} ${y - 5}v-8" class="formation-facing"/><text x="${x}" y="${y + 4}" text-anchor="middle">${label}</text></g>`;
+  const svg = `<svg viewBox="0 0 500 410" role="img" aria-label="Overhead final formation: ${total} cadets in ${elements} elements. Row lengths from front to back are ${rowCounts.join(", ")}. Extra positions are on the left of the rear elements; the flight sergeant occupies the final leftmost position in the last element."><text x="250" y="28" text-anchor="middle" class="formation-direction">FRONT ↑ · everyone faces this way</text><path d="M360 100V${100 + (elements - 1) * 70}" class="formation-guide-line"/>${cadet(420, 100, "G", "formation-guide")}${rowCounts.map((count, row) => {
+    const y = 100 + row * 70;
+    return `<text x="22" y="${y + 4}" class="formation-row-label">ELEMENT ${row + 1}</text>${Array.from({ length: count }, (_, col) => {
+      const lastSpot = row === elements - 1 && col === count - 1;
+      const extraSpot = col === fullFiles;
+      return cadet(360 - col * 60, y, lastSpot ? "FS" : col === 0 ? `E${row + 1}` : "C", lastSpot ? "formation-sergeant" : extraSpot ? "formation-extra" : "");
+    }).join("")}`;
+  }).join("")}<text x="25" y="382" class="formation-caption">G = guide · E = element leader · C = cadet · FS = flight sergeant</text></svg>`;
+  return { svg, rowCounts, extras };
+}
+
 function drillFormationDiagram() {
-  const cadet = (x, y, label, highlight = false) => `<g><circle cx="${x}" cy="${y}" r="14" class="formation-cadet ${highlight ? "formation-you" : ""}"/><path d="M${x} ${y - 5}v-7" class="formation-facing"/><text x="${x}" y="${y + 4}" text-anchor="middle">${label}</text></g>`;
-  const ranks = [["E1", "YOU", "C"], ["E2", "C", "C"], ["E3", "C", "C"]];
-  return `<figure class="formation-diagram"><figcaption>FALL IN · overhead view of a sample three-element flight</figcaption><svg viewBox="0 0 420 375" role="img" aria-label="From above: the flight sergeant is ahead of the first rank; the guide is at the front right; element leaders form a file behind the first element leader; cadets form ranks to their left; all cadets face front."><text x="210" y="20" text-anchor="middle" class="formation-direction">FRONT ↑ · all cadets face this way</text>${cadet(250, 53, "FS")}${cadet(300, 120, "G")}${ranks.map((rank, row) => rank.map((label, col) => cadet(250 - col * 60, 120 + row * 75, label, label === "YOU")).join("")).join("")}<path d="M250 120V270" class="formation-guide-line"/><path d="M250 120H130" class="formation-guide-line"/><text x="80" y="342" class="formation-caption">G guide · E element leader · FS flight sergeant</text></svg><p>Each horizontal row is an element. The element leaders form the right-hand file, directly behind one another. Other cadets fill open places to their left. Gold marks one example position, not an assigned spot.</p><small>Schematic only · not to scale or an exact spacing template</small></figure>`;
+  const example = drillFormationExample(4, 14);
+  return `<figure class="formation-diagram"><figcaption>What if the flight does not make a perfect rectangle?</figcaption><div class="formation-example-controls" aria-label="Formation examples"><button type="button" data-formation-example="3,8">8 cadets · 3 elements</button><button type="button" data-formation-example="4,14" class="active">14 cadets · 4 elements</button><button type="button" data-formation-example="4,16">16 cadets · 4 elements</button></div><div class="formation-example-graphic">${example.svg}</div><p class="formation-example-result" aria-live="polite">14 cadets in four elements: 3, 3, 4, and 4 across from front to back. The two extra positions extend the left side of the third and fourth elements.</p><p><b>Where do you go?</b> If you are not an element leader, join any open place to the left of an element leader, then dress right and cover. If the rows are uneven, the flight staff squares them off after the flight forms; do not guess a new spot or leave an element leader without direction.</p><p><b>How it ends:</b> The right-hand element leaders stay in one front-to-back file. Every element has the same core width; extra cadets extend the left side of the last element first, then the next-to-last. The flight sergeant initially calls FALL IN from in front, then occupies the final position in the last element when the flight is squared off.</p><small>Final formation viewed from above · guide shown separately · total includes the flight sergeant · schematic, not to scale</small></figure>`;
+}
+
+function initFormationExamples() {
+  const graphic = document.querySelector(".formation-example-graphic");
+  const result = document.querySelector(".formation-example-result");
+  document.querySelectorAll("[data-formation-example]").forEach((button) => button.addEventListener("click", () => {
+    const [elements, total] = button.dataset.formationExample.split(",").map(Number);
+    const example = drillFormationExample(elements, total);
+    graphic.innerHTML = example.svg;
+    const extrasText = example.extras ? `${example.extras} extra ${example.extras === 1 ? "position extends" : "positions extend"} the left side of the rear ${example.extras === 1 ? "element" : "elements"}.` : "No extra positions are needed; every element has the same width.";
+    result.textContent = `${total} cadets in ${elements} elements: ${example.rowCounts.join(", ")} across from front to back. ${extrasText}`;
+    document.querySelectorAll("[data-formation-example]").forEach((item) => item.classList.toggle("active", item === button));
+  }));
 }
 
 function drillSceneSvg(pose, label) {
@@ -151,6 +180,7 @@ function renderDrill(id = "fall-in") {
   const moves = guide ? `<div class="drill-intro"><p class="eyebrow">${guide.subtitle}</p><h2>${guide.title} drill test</h2><p>${guide.setup}</p><p class="drill-source-note">Use “BY THE NUMBERS” to slow a multi-count movement: execute count one on the command of execution, then have the instructor call “Ready, TWO” for count two. Marching beats below are study cues; follow the instructor's command timing and the full manual.</p></div><div class="drill-move-list">${guide.moves.map(([command, counts], i) => `<details class="drill-move" ${i === 0 ? "open" : ""}><summary><span class="drill-move-number">${String(i + 1).padStart(2, "0")}</span><strong>${command}</strong><span class="drill-move-hint">By the numbers ↓</span></summary><div class="drill-move-body"><ol class="drill-count-list">${counts.map((count, j) => `<li><b>${String(j + 1).padStart(2, "0")}</b><span>${count}</span></li>`).join("")}</ol>${drillVisualSequence(DRILL_SCENE_KEYS[guide.id][i])}</div></details>`).join("")}</div>` : "";
   main.innerHTML = `<section class="module-hero drill-hero"><div class="page-shell"><p class="eyebrow">Field-ready study guide</p><h1 class="page-title">Drill by the numbers</h1><p>Build movements slowly, see where the feet go, then practice at normal cadence with your element or flight.</p></div></section><section class="page-shell drill-page">${tabs}<div class="drill-learning-note"><strong>How “by the numbers” works</strong><p>For a two-count movement, the first count happens on the command of execution. The instructor calls <b>Ready, TWO</b> for count two. Continue by the numbers until the instructor says <b>WITHOUT THE NUMBERS</b>. The illustrations are teaching aids, not exact scale drawings.</p></div>${guide ? moves : fallIn}<div class="drill-official"><h2>Practice with the official standard</h2><p>This site is not a scored CAP drill test. A senior-member testing officer evaluates the CAPP 60-34 scorecard. Confirm any difference against the current official publications and your instructor.</p><div><a href="${DRILL_SOURCES.manual}" target="_blank" rel="noopener">CAPP 60-33 · Drill & Ceremonies ↗</a><a href="${DRILL_SOURCES.tests}" target="_blank" rel="noopener">CAPP 60-34 · Practical Tests ↗</a></div></div></section>`;
   initDrillAnimations();
+  if (!guide) initFormationExamples();
 }
 
 function renderModules() {

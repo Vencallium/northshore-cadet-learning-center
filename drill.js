@@ -6,11 +6,12 @@ const DRILL_SOURCES = {
 };
 
 const FALL_IN_STEPS = [
-  "Hear FALL IN, then move promptly to an open place in the flight's line formation. Do not run through or across the formation.",
-  "Element leaders establish the front-to-rear files. As an element member, stand to the left of your element leader or the cadet already in your rank.",
+  "Hear FALL IN, then move promptly to an open place. The guide and element leaders establish the formation first; do not run through or across other cadets.",
+  "If you are an element leader, line up directly behind the first element leader. If you are not, take an open place to the left of an element leader in one of the elements.",
   "Automatically perform Dress Right, DRESS: extend the left arm, look 45° right, and adjust until your shoulder-to-fingertip interval and alignment are correct.",
   "If you are behind another cadet, cover directly behind that person and establish the prescribed front-to-rear distance. Use small steps to correct position.",
-  "When dress, cover, interval, and distance are set, automatically execute Ready, FRONT. Drop the arm, face front, bring heels together, and remain at attention."
+  "When dress, cover, interval, and distance are set, automatically execute Ready, FRONT. Drop the arm, face front, bring heels together, and remain at attention.",
+  "If the number of cadets does not divide evenly among the elements, follow the flight staff's direction as they square off the left flank. Extra positions are filled in the last element first, then upward toward the first."
 ];
 
 // Each cell is [stage, overhead pose, visual cue]. Poses are schematic, not scale drawings.
