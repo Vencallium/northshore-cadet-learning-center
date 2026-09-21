@@ -106,40 +106,43 @@ function drillFootDiagram(kind) {
 }
 
 function drillFormationExample(elements, total) {
-  // The guide is separate. Total includes the flight sergeant in the final formation.
+  // The slider total counts only cadets in the element ranks. Flight staff and guidon are separate.
   const fullFiles = Math.floor(total / elements);
   const extras = total % elements;
   const rowCounts = Array.from({ length: elements }, (_, row) => fullFiles + (row >= elements - extras ? 1 : 0));
-  const cadet = (x, y, label, kind = "") => `<g><circle cx="${x}" cy="${y}" r="15" class="formation-cadet ${kind}"/><path d="M${x} ${y - 5}v-8" class="formation-facing"/><text x="${x}" y="${y + 4}" text-anchor="middle">${label}</text></g>`;
-  const svg = `<svg viewBox="0 0 500 410" role="img" aria-label="Overhead final formation: ${total} cadets in ${elements} elements. Row lengths from front to back are ${rowCounts.join(", ")}. Extra positions are on the left of the rear elements; the flight sergeant occupies the final leftmost position in the last element."><text x="250" y="28" text-anchor="middle" class="formation-direction">FRONT ↑ · everyone faces this way</text><path d="M360 100V${100 + (elements - 1) * 70}" class="formation-guide-line"/>${cadet(420, 100, "G", "formation-guide")}${rowCounts.map((count, row) => {
-    const y = 100 + row * 70;
-    return `<text x="22" y="${y + 4}" class="formation-row-label">ELEMENT ${row + 1}</text>${Array.from({ length: count }, (_, col) => {
-      const lastSpot = row === elements - 1 && col === count - 1;
-      const extraSpot = col === fullFiles;
-      return cadet(360 - col * 60, y, lastSpot ? "FS" : col === 0 ? `E${row + 1}` : "C", lastSpot ? "formation-sergeant" : extraSpot ? "formation-extra" : "");
-    }).join("")}`;
-  }).join("")}<text x="25" y="382" class="formation-caption">G = guide · E = element leader · C = cadet · FS = flight sergeant</text></svg>`;
+  const rankX = 330;
+  const rankGap = 58;
+  const rowGap = 62;
+  const firstY = 120;
+  const maxFiles = Math.max(...rowCounts);
+  const leftEdge = rankX - (maxFiles - 1) * rankGap;
+  const formationCenter = (leftEdge + rankX) / 2;
+  const lastY = firstY + (elements - 1) * rowGap;
+  const marker = (x, y, label, kind, fullLabel) => `<g aria-label="${fullLabel}"><circle cx="${x}" cy="${y}" r="17" class="formation-cadet ${kind}"/><path d="M${x} ${y - 6}v-8" class="formation-facing"/><text x="${x}" y="${y + 4}" text-anchor="middle">${label}</text></g>`;
+  const rankedCadet = (x, y, label, kind = "") => marker(x, y, label, kind, label.startsWith("E") ? `Element leader ${label.slice(1)}` : "Cadet");
+  const svg = `<svg viewBox="0 0 500 ${Math.max(390, lastY + 105)}" role="img" aria-label="Overhead formation: ${total} ranked cadets in ${elements} ${elements === 1 ? "element" : "elements"}, plus a fixed flight sergeant centered in front, a fixed flight commander right of the last element leader, and a fixed guidon right of the first element leader. Row lengths from front to back are ${rowCounts.join(", ")}."><text x="250" y="26" text-anchor="middle" class="formation-direction">FRONT ↑ · everyone faces this way</text>${marker(formationCenter, 62, "FS", "formation-sergeant", "Flight sergeant, centered in front of the formation")}${rowCounts.map((count, row) => {
+    const y = firstY + row * rowGap;
+    return `<text x="18" y="${y + 4}" class="formation-row-label">ELEMENT ${row + 1}</text>${Array.from({ length: count }, (_, col) => rankedCadet(rankX - col * rankGap, y, col === 0 ? `E${row + 1}` : "C", col === count - 1 && count > fullFiles ? "formation-extra" : "")).join("")}`;
+  }).join("")}${marker(rankX + 68, firstY, "G", "formation-guidon", "Guidon, right of the first element leader")}${marker(rankX + 68, lastY, "FC", "formation-commander", "Flight commander, right of the last element leader")}<text x="18" y="${Math.max(370, lastY + 82)}" class="formation-caption">White = ranked cadets · Purple = flight sergeant · Blue = flight commander · Red = guidon</text></svg>`;
   return { svg, rowCounts, extras };
 }
 
 function formationElementCount(total) {
-  if (total <= 7) return 2;
-  if (total <= 11) return 3;
-  return 4;
+  return Math.ceil(total / 4);
 }
 
 function formationCountSummary(total, example) {
-  const word = example.rowCounts.length === 2 ? "two" : example.rowCounts.length === 3 ? "three" : "four";
+  const word = ["zero", "one", "two", "three", "four"][example.rowCounts.length];
   const extraText = example.extras
     ? `${example.extras} extra ${example.extras === 1 ? "position extends" : "positions extend"} the left side of the rear ${example.extras === 1 ? "element" : "elements"}.`
     : "No extra positions are needed; every element has the same width.";
-  return `${total} cadets in ${word} elements: ${example.rowCounts.join(", ")} across from front to back. ${extraText}`;
+  return `${total} ranked cadets in ${word} ${example.rowCounts.length === 1 ? "element" : "elements"}: ${example.rowCounts.join(", ")} across from front to back. ${extraText} Flight staff and the guidon are not included in the slider count.`;
 }
 
 function drillFormationDiagram() {
   const total = 4;
   const example = drillFormationExample(formationElementCount(total), total);
-  return `<figure class="formation-diagram"><figcaption>What if the flight does not make a perfect rectangle?</figcaption><div class="formation-slider"><div class="formation-slider-heading"><label for="formation-cadet-count">Number of cadets</label><output for="formation-cadet-count" data-formation-count>${total}</output></div><input id="formation-cadet-count" type="range" min="4" max="16" step="1" value="${total}" aria-describedby="formation-count-help"><div class="formation-slider-scale" aria-hidden="true"><span>4</span><span>10</span><span>16</span></div><p id="formation-count-help">Drag the slider to see how the flight balances from 4 through 16 cadets.</p></div><div class="formation-example-graphic">${example.svg}</div><p class="formation-example-result" aria-live="polite">${formationCountSummary(total, example)}</p><p><b>Where do you go?</b> If you are not an element leader, join any open place to the left of an element leader, then dress right and cover. If the rows are uneven, the flight staff squares them off after the flight forms; do not guess a new spot or leave an element leader without direction.</p><p><b>How it ends:</b> The right-hand element leaders stay in one front-to-back file. Every element has the same core width; extra cadets extend the left side of the last element first, then the next-to-last. The flight sergeant initially calls FALL IN from in front, then occupies the final position in the last element when the flight is squared off.</p><small>Final formation viewed from above · guide shown separately · total includes the flight sergeant · schematic, not to scale</small></figure>`;
+  return `<figure class="formation-diagram"><figcaption>Flight formation from above</figcaption><div class="formation-role-key" aria-label="Formation color key"><span><i class="key-sergeant"></i>Purple · flight sergeant</span><span><i class="key-commander"></i>Blue · flight commander</span><span><i class="key-guidon"></i>Red · guidon</span><span><i class="key-cadet"></i>White · ranked cadet</span></div><div class="formation-slider"><div class="formation-slider-heading"><label for="formation-cadet-count">Ranked cadets</label><output for="formation-cadet-count" data-formation-count>${total}</output></div><input id="formation-cadet-count" type="range" min="4" max="16" step="1" value="${total}" aria-describedby="formation-count-help"><div class="formation-slider-scale" aria-hidden="true"><span>4</span><span>10</span><span>16</span></div><p id="formation-count-help">Drag from 4 through 16 ranked cadets. The flight sergeant, flight commander, and guidon are shown in addition to this number.</p></div><div class="formation-example-graphic">${example.svg}</div><p class="formation-example-result" aria-live="polite">${formationCountSummary(total, example)}</p><div class="formation-fixed-roles"><p><b>Purple · Flight sergeant:</b> always centered in front of the formation.</p><p><b>Blue · Flight commander:</b> always to the right of the last element leader.</p><p><b>Red · Guidon:</b> always at the front of the formation, immediately to the right of the first element leader.</p></div><p><b>Where do ranked cadets go?</b> Element leaders form the right-hand file. Other cadets fill to their left, then dress right and cover. When the count is uneven, the extra positions fill the rear elements first.</p><small>Final formation viewed from above · 4–16 count excludes the three colored positions · schematic, not to scale</small></figure>`;
 }
 
 function initFormationExamples() {

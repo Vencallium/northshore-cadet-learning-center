@@ -182,6 +182,21 @@ h3 { font-size: 1.15rem; }
 .formation-slider-scale { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; font-weight: 800; }
 .formation-slider p { margin: .45rem 0 0; color: var(--muted); font-size: .85rem; }
 .formation-example-result { padding: .75rem 1rem; background: var(--surface); border-left: 3px solid var(--gold-400); font-weight: 800; }
+.formation-role-key { display: flex; flex-wrap: wrap; gap: .55rem 1rem; margin: 0 0 1rem; padding: .8rem 1rem; background: var(--surface); border: 1px solid var(--line); }
+.formation-role-key span { display: inline-flex; align-items: center; gap: .45rem; color: var(--muted); font-size: .8rem; font-weight: 800; text-transform: uppercase; }
+.formation-role-key i { width: .9rem; height: .9rem; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; }
+.key-sergeant { background: #8d078d; }
+.key-commander { background: #11198e; }
+.key-guidon { background: #f01818; }
+.key-cadet { background: #f7f8fb; }
+.formation-fixed-roles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; margin: 1rem 0; }
+.formation-fixed-roles p { margin: 0; padding: .8rem; background: var(--surface); border: 1px solid var(--line); font-size: .88rem; }
+.formation-sergeant { fill: #8d078d !important; }
+.formation-commander { fill: #11198e !important; }
+.formation-guidon { fill: #f01818 !important; }
+@media (max-width: 700px) {
+  .formation-fixed-roles { grid-template-columns: 1fr; }
+}
 .formation-cadet { fill: var(--blue-500); stroke: #fff; stroke-width: 2; }
 .formation-you { fill: var(--gold-400); }
 .formation-extra { fill: var(--gold-400); }
