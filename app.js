@@ -128,7 +128,9 @@ function drillFormationExample(elements, total) {
 }
 
 function formationElementCount(total) {
-  return Math.ceil(total / 4);
+  if (total <= 8) return 2;
+  if (total <= 12) return 3;
+  return 4;
 }
 
 function formationCountSummary(total, example) {
