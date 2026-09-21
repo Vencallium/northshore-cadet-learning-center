@@ -228,6 +228,17 @@ h3 { font-size: 1.15rem; }
 .drill-video-meta strong { font-family: "Archivo", sans-serif; text-transform: uppercase; }
 .drill-video-meta span { color: var(--muted); font-size: .9rem; }
 .drill-video-meta a { color: var(--blue-500); font-size: .85rem; font-weight: 800; }
+.drill-performance { margin: 1.4rem 0 2rem; padding: 1.25rem; border: 1px solid var(--line); border-top: 3px solid var(--blue-500); background: var(--surface); }
+.drill-performance-heading { display: grid; grid-template-columns: minmax(0, .8fr) minmax(18rem, 1.2fr); gap: 1.5rem; align-items: end; margin-bottom: 1rem; }
+.drill-performance-heading h3 { margin: .25rem 0 0; font: 800 clamp(1.35rem, 2.7vw, 2rem)/1 "Archivo", sans-serif; text-transform: uppercase; }
+.drill-performance-heading > p { margin: 0; color: var(--muted); }
+.drill-performance-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.drill-video-extra { margin: 0; }
+.drill-video-extra .drill-video-meta p { margin: .2rem 0; color: var(--text); font-size: .9rem; }
+.drill-performance-caution { margin: 1rem 0 0; color: var(--muted); font-size: .85rem; }
+@media (max-width: 700px) {
+  .drill-performance-heading, .drill-performance-grid { grid-template-columns: 1fr; }
+}
 .drill-written-steps { margin-bottom: .5rem; }
 .drill-written-steps > summary { color: var(--blue-500); cursor: pointer; font-weight: 800; }
 @media (max-width: 620px) { .drill-animation-head { display: block; } .drill-animation-controls { margin: .5rem 0; } }

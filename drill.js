@@ -68,6 +68,39 @@ const DRILL_VIDEOS = {
   }
 };
 
+// Supplemental full-body demonstrations. These show cadets carrying the movements through
+// at normal pace; the timed CAP clips above remain the command-by-command teaching source.
+const DRILL_PERFORMANCE_VIDEOS = {
+  "achievement-1": [
+    {
+      id: "GuYgG5_VOf0",
+      title: "Achievement 1 Drill Test",
+      creator: "C/CMSgt Noah Schalbrack",
+      note: "Watch a CAP cadet work through the Achievement 1 movements as a test sequence."
+    },
+    {
+      id: "1wFEABLXqAQ",
+      title: "AFROTC Basic Drill Movements",
+      creator: "AFROTC Detachment 330",
+      note: "Full-body views of stationary positions, facing movements, salutes, dress, cover, and formations."
+    }
+  ],
+  "achievement-2": [
+    {
+      id: "AscQCk51ps8",
+      title: "Air Force Marching Movements",
+      creator: "AFROTC Detachment 592",
+      note: "Cadets demonstrate basic marching movements while maintaining cadence and formation."
+    },
+    {
+      id: "1wFEABLXqAQ",
+      title: "AFROTC Basic Drill Movements",
+      creator: "AFROTC Detachment 330",
+      note: "A wider formation view of forward march, flight halt, dress, cover, and related fundamentals."
+    }
+  ]
+};
+
 // Each entry follows the CAPP 60-34 scorecard order. Counts are instructional cues,
 // not a substitute for the command's formal timing in CAPP 60-33.
 const DRILL_GUIDES = [
