@@ -51,6 +51,23 @@ const DRILL_SCENE_KEYS = {
   "achievement-2": ["forward", "double", "quick", "halt", "openranks", "ready", "closeranks", "rightstep", "sidestophalt", "forward", "rightflank", "leftflank", "cadence", "rear", "halt"]
 };
 
+// Video demonstrations linked by the CAP Bessemer Composite Squadron drill library.
+// Times map each CAPP 60-34 scorecard item to the matching explanation/demonstration.
+const DRILL_VIDEOS = {
+  "achievement-1": {
+    id: "eb1Rs6djH84",
+    title: "Achievement 1 Drill & Ceremonies | Stationary Drill – CAPP 60-34",
+    creator: "Redberryweo",
+    clips: [[137,307],[340,494],[497,556],[556,579],[584,722],[725,925],[925,944],[945,992],[992,1033],[1044,1100],[1071,1082],[1100,1169],[1169,1189],[1189,1200],[1200,1224]]
+  },
+  "achievement-2": {
+    id: "awV1K690490",
+    title: "Achievement 2 Drill & Ceremonies | Basic Marching – CAPP 60-34",
+    creator: "Redberryweo",
+    clips: [[114,195],[195,242],[242,270],[323,362],[376,665],[665,703],[703,743],[703,731],[725,731],[114,195],[737,819],[819,848],[848,868],[868,899],[899,904]]
+  }
+};
+
 // Each entry follows the CAPP 60-34 scorecard order. Counts are instructional cues,
 // not a substitute for the command's formal timing in CAPP 60-33.
 const DRILL_GUIDES = [

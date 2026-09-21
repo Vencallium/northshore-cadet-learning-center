@@ -172,15 +172,41 @@ function drillVisualSequence(key) {
   return `<figure class="drill-sequence"><figcaption>Movement from above · ${frames.length} stages</figcaption><div class="drill-animation" data-scene-key="${key}"><div class="drill-animation-head"><div><strong class="drill-animation-stage"></strong><p class="drill-animation-cue" aria-live="off"></p></div><div class="drill-animation-controls"><button type="button" data-drill-play>Play</button><button type="button" data-drill-restart>Replay</button></div></div><svg class="drill-animation-scene" viewBox="0 0 210 155" role="img" aria-label="Animated overhead demonstration of ${key.replaceAll("-", " ")}"></svg><div class="drill-animation-track"><span class="drill-animation-progress"></span></div><div class="drill-animation-steps" aria-label="Animation stages">${frames.map(([stage], i) => `<button type="button" data-drill-stage="${i}"><span>${String(i + 1).padStart(2, "0")}</span>${stage}</button>`).join("")}</div></div><details class="drill-snapshots"><summary>See all positions as still diagrams</summary><div class="drill-frames">${frames.map(([stage, pose, cue], i) => `<div class="drill-frame"><strong><span>${String(i + 1).padStart(2, "0")}</span> ${stage}</strong>${drillSceneSvg(pose, `${stage}. ${cue}`)}<p>${cue}</p></div>`).join("")}</div></details><small>L/R = left/right foot · yellow dot = pivot · diagrams are schematic, not to scale</small></figure>`;
 }
 
+function drillVideoClip(guideId, index, command) {
+  const video = DRILL_VIDEOS[guideId];
+  const [start, end] = video.clips[index];
+  const stamp = (seconds) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+  return `<section class="drill-video" data-video-id="${video.id}" data-start="${start}" data-end="${end}"><div class="drill-video-preview"><img src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg" alt="Video demonstration for ${command}" loading="lazy"><button type="button" data-play-drill-video aria-label="Play ${command} demonstration"><span aria-hidden="true">▶</span> Play demonstration</button><div class="drill-video-time">${stamp(start)}–${stamp(end)}</div></div><div class="drill-video-meta"><strong>${command}</strong><span>From “${video.title}” by ${video.creator}</span><a href="https://www.youtube.com/watch?v=${video.id}&t=${start}s" target="_blank" rel="noopener">Open this section on YouTube ↗</a></div></section>`;
+}
+
+function initDrillVideos() {
+  document.querySelectorAll("[data-play-drill-video]").forEach((button) => button.addEventListener("click", () => {
+    const video = button.closest(".drill-video");
+    const { videoId, start, end } = video.dataset;
+    document.querySelectorAll(".drill-video iframe").forEach((frame) => {
+      if (!video.contains(frame)) frame.closest(".drill-video").querySelector(".drill-video-preview").hidden = false;
+      if (!video.contains(frame)) frame.remove();
+    });
+    const iframe = document.createElement("iframe");
+    iframe.title = button.getAttribute("aria-label");
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?start=${start}&end=${end}&autoplay=1&rel=0`;
+    video.querySelector(".drill-video-preview").hidden = true;
+    video.prepend(iframe);
+  }));
+}
+
 function renderDrill(id = "fall-in") {
   const guide = DRILL_GUIDES.find((item) => item.id === id);
   const selected = guide ? guide.id : "fall-in";
   const tabs = `<nav class="drill-tabs" aria-label="Drill lessons"><a href="#drill/fall-in" ${selected === "fall-in" ? 'aria-current="page"' : ""}>How to fall in</a>${DRILL_GUIDES.map((item) => `<a href="#drill/${item.id}" ${selected === item.id ? 'aria-current="page"' : ""}>${item.title}</a>`).join("")}</nav>`;
   const fallIn = `<div class="drill-intro"><p class="eyebrow">First formation skill</p><h2>How to fall in</h2><p>FALL IN forms a flight in line. In a normal full flight, the guide takes position first, then the first element leader lines up to the guide's left. The other element leaders line up behind the first. Cadets fill the open places to the left of those leaders.</p><p>A full flight normally has two to four elements. The smaller Achievement 1 test deliberately uses one element; its scorecard setup is not the layout of a full flight.</p>${drillFormationDiagram()}<h3>By the numbers: find your place</h3><ol class="drill-count-list">${FALL_IN_STEPS.map((step, i) => `<li><b>${String(i + 1).padStart(2, "0")}</b><span>${step}</span></li>`).join("")}</ol>${drillVisualSequence("fallin")}<p class="drill-source-note">CAPP 60-33 §4.3.1 explains the flight formation. On the Achievement 1 scorecard, FALL IN includes automatic dress and ready front.</p></div>`;
-  const moves = guide ? `<div class="drill-intro"><p class="eyebrow">${guide.subtitle}</p><h2>${guide.title} drill test</h2><p>${guide.setup}</p><p class="drill-source-note">Use “BY THE NUMBERS” to slow a multi-count movement: execute count one on the command of execution, then have the instructor call “Ready, TWO” for count two. Marching beats below are study cues; follow the instructor's command timing and the full manual.</p></div><div class="drill-move-list">${guide.moves.map(([command, counts], i) => `<details class="drill-move" ${i === 0 ? "open" : ""}><summary><span class="drill-move-number">${String(i + 1).padStart(2, "0")}</span><strong>${command}</strong><span class="drill-move-hint">By the numbers ↓</span></summary><div class="drill-move-body"><ol class="drill-count-list">${counts.map((count, j) => `<li><b>${String(j + 1).padStart(2, "0")}</b><span>${count}</span></li>`).join("")}</ol>${drillVisualSequence(DRILL_SCENE_KEYS[guide.id][i])}</div></details>`).join("")}</div>` : "";
+  const moves = guide ? `<div class="drill-intro"><p class="eyebrow">${guide.subtitle}</p><h2>${guide.title} drill test</h2><p>${guide.setup}</p><p class="drill-source-note">Open a command and press <b>Play demonstration</b>. The embedded video starts at the section for that movement and stops at the end of the section. Keep the written counts nearby while you practice.</p></div><div class="drill-move-list">${guide.moves.map(([command, counts], i) => `<details class="drill-move" ${i === 0 ? "open" : ""}><summary><span class="drill-move-number">${String(i + 1).padStart(2, "0")}</span><strong>${command}</strong><span class="drill-move-hint">Watch the movement ↓</span></summary><div class="drill-move-body">${drillVideoClip(guide.id, i, command)}<details class="drill-written-steps"><summary>Read the movement by the numbers</summary><ol class="drill-count-list">${counts.map((count, j) => `<li><b>${String(j + 1).padStart(2, "0")}</b><span>${count}</span></li>`).join("")}</ol></details></div></details>`).join("")}</div>` : "";
   main.innerHTML = `<section class="module-hero drill-hero"><div class="page-shell"><p class="eyebrow">Field-ready study guide</p><h1 class="page-title">Drill by the numbers</h1><p>Build movements slowly, see where the feet go, then practice at normal cadence with your element or flight.</p></div></section><section class="page-shell drill-page">${tabs}<div class="drill-learning-note"><strong>How “by the numbers” works</strong><p>For a two-count movement, the first count happens on the command of execution. The instructor calls <b>Ready, TWO</b> for count two. Continue by the numbers until the instructor says <b>WITHOUT THE NUMBERS</b>. The illustrations are teaching aids, not exact scale drawings.</p></div>${guide ? moves : fallIn}<div class="drill-official"><h2>Practice with the official standard</h2><p>This site is not a scored CAP drill test. A senior-member testing officer evaluates the CAPP 60-34 scorecard. Confirm any difference against the current official publications and your instructor.</p><div><a href="${DRILL_SOURCES.manual}" target="_blank" rel="noopener">CAPP 60-33 · Drill & Ceremonies ↗</a><a href="${DRILL_SOURCES.tests}" target="_blank" rel="noopener">CAPP 60-34 · Practical Tests ↗</a></div></div></section>`;
   initDrillAnimations();
   if (!guide) initFormationExamples();
+  if (guide) initDrillVideos();
 }
 
 function renderModules() {

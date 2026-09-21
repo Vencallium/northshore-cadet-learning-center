@@ -216,6 +216,20 @@ h3 { font-size: 1.15rem; }
 .drill-snapshots { margin-bottom: .8rem; }
 .drill-snapshots summary { color: var(--blue-500); cursor: pointer; font-weight: 800; }
 .drill-snapshots .drill-frames { margin-top: .7rem; }
+.drill-video { margin: .3rem 0 1rem; background: var(--surface-2); border: 1px solid var(--line); }
+.drill-video-preview { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #050b14; }
+.drill-video-preview img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: .62; }
+.drill-video-preview button { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: .6rem; padding: .85rem 1.1rem; color: #fff; background: var(--blue-500); border: 0; cursor: pointer; font: 800 .95rem "Archivo", sans-serif; text-transform: uppercase; white-space: nowrap; }
+.drill-video-preview button:hover { background: var(--red-600); }
+.drill-video-preview button span { font-size: 1.2rem; }
+.drill-video-time { position: absolute; right: .7rem; bottom: .7rem; padding: .25rem .45rem; color: #fff; background: rgba(3, 13, 29, .9); font-weight: 800; }
+.drill-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.drill-video-meta { display: grid; gap: .3rem; padding: .8rem 1rem; }
+.drill-video-meta strong { font-family: "Archivo", sans-serif; text-transform: uppercase; }
+.drill-video-meta span { color: var(--muted); font-size: .9rem; }
+.drill-video-meta a { color: var(--blue-500); font-size: .85rem; font-weight: 800; }
+.drill-written-steps { margin-bottom: .5rem; }
+.drill-written-steps > summary { color: var(--blue-500); cursor: pointer; font-weight: 800; }
 @media (max-width: 620px) { .drill-animation-head { display: block; } .drill-animation-controls { margin: .5rem 0; } }
 .drill-official { margin-top: 2.5rem; }
 .drill-official h2 { margin: 0 0 .5rem; font-size: 1.5rem; }
