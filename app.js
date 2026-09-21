@@ -122,22 +122,43 @@ function drillFormationExample(elements, total) {
   return { svg, rowCounts, extras };
 }
 
+function formationElementCount(total) {
+  if (total <= 7) return 2;
+  if (total <= 11) return 3;
+  return 4;
+}
+
+function formationCountSummary(total, example) {
+  const word = example.rowCounts.length === 2 ? "two" : example.rowCounts.length === 3 ? "three" : "four";
+  const extraText = example.extras
+    ? `${example.extras} extra ${example.extras === 1 ? "position extends" : "positions extend"} the left side of the rear ${example.extras === 1 ? "element" : "elements"}.`
+    : "No extra positions are needed; every element has the same width.";
+  return `${total} cadets in ${word} elements: ${example.rowCounts.join(", ")} across from front to back. ${extraText}`;
+}
+
 function drillFormationDiagram() {
-  const example = drillFormationExample(4, 14);
-  return `<figure class="formation-diagram"><figcaption>What if the flight does not make a perfect rectangle?</figcaption><div class="formation-example-controls" aria-label="Formation examples"><button type="button" data-formation-example="3,8">8 cadets · 3 elements</button><button type="button" data-formation-example="4,14" class="active">14 cadets · 4 elements</button><button type="button" data-formation-example="4,16">16 cadets · 4 elements</button></div><div class="formation-example-graphic">${example.svg}</div><p class="formation-example-result" aria-live="polite">14 cadets in four elements: 3, 3, 4, and 4 across from front to back. The two extra positions extend the left side of the third and fourth elements.</p><p><b>Where do you go?</b> If you are not an element leader, join any open place to the left of an element leader, then dress right and cover. If the rows are uneven, the flight staff squares them off after the flight forms; do not guess a new spot or leave an element leader without direction.</p><p><b>How it ends:</b> The right-hand element leaders stay in one front-to-back file. Every element has the same core width; extra cadets extend the left side of the last element first, then the next-to-last. The flight sergeant initially calls FALL IN from in front, then occupies the final position in the last element when the flight is squared off.</p><small>Final formation viewed from above · guide shown separately · total includes the flight sergeant · schematic, not to scale</small></figure>`;
+  const total = 4;
+  const example = drillFormationExample(formationElementCount(total), total);
+  return `<figure class="formation-diagram"><figcaption>What if the flight does not make a perfect rectangle?</figcaption><div class="formation-slider"><div class="formation-slider-heading"><label for="formation-cadet-count">Number of cadets</label><output for="formation-cadet-count" data-formation-count>${total}</output></div><input id="formation-cadet-count" type="range" min="4" max="16" step="1" value="${total}" aria-describedby="formation-count-help"><div class="formation-slider-scale" aria-hidden="true"><span>4</span><span>10</span><span>16</span></div><p id="formation-count-help">Drag the slider to see how the flight balances from 4 through 16 cadets.</p></div><div class="formation-example-graphic">${example.svg}</div><p class="formation-example-result" aria-live="polite">${formationCountSummary(total, example)}</p><p><b>Where do you go?</b> If you are not an element leader, join any open place to the left of an element leader, then dress right and cover. If the rows are uneven, the flight staff squares them off after the flight forms; do not guess a new spot or leave an element leader without direction.</p><p><b>How it ends:</b> The right-hand element leaders stay in one front-to-back file. Every element has the same core width; extra cadets extend the left side of the last element first, then the next-to-last. The flight sergeant initially calls FALL IN from in front, then occupies the final position in the last element when the flight is squared off.</p><small>Final formation viewed from above · guide shown separately · total includes the flight sergeant · schematic, not to scale</small></figure>`;
 }
 
 function initFormationExamples() {
   const graphic = document.querySelector(".formation-example-graphic");
   const result = document.querySelector(".formation-example-result");
-  document.querySelectorAll("[data-formation-example]").forEach((button) => button.addEventListener("click", () => {
-    const [elements, total] = button.dataset.formationExample.split(",").map(Number);
+  const slider = document.querySelector("#formation-cadet-count");
+  const count = document.querySelector("[data-formation-count]");
+  if (!graphic || !result || !slider || !count) return;
+  const update = () => {
+    const total = Number(slider.value);
+    const elements = formationElementCount(total);
     const example = drillFormationExample(elements, total);
     graphic.innerHTML = example.svg;
-    const extrasText = example.extras ? `${example.extras} extra ${example.extras === 1 ? "position extends" : "positions extend"} the left side of the rear ${example.extras === 1 ? "element" : "elements"}.` : "No extra positions are needed; every element has the same width.";
-    result.textContent = `${total} cadets in ${elements} elements: ${example.rowCounts.join(", ")} across from front to back. ${extrasText}`;
-    document.querySelectorAll("[data-formation-example]").forEach((item) => item.classList.toggle("active", item === button));
-  }));
+    result.textContent = formationCountSummary(total, example);
+    count.value = total;
+    slider.style.setProperty("--formation-progress", `${((total - 4) / 12) * 100}%`);
+  };
+  slider.addEventListener("input", update);
+  update();
 }
 
 function drillSceneSvg(pose, label) {
