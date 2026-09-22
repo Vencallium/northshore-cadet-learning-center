@@ -247,7 +247,7 @@ function renderModules() {
 function renderActivity(activity) {
   if (!activity) return "";
   if (["timeline", "hierarchy", "oath"].includes(activity.type)) {
-    return `<section class="activity-card"><p class="eyebrow">Interactive</p><h3>${activity.title}</h3><div class="reveal-list">${activity.items.map((item, i) => `<button class="reveal-button" type="button" data-reveal="${i}" aria-expanded="false"><span>${item[0]}</span><strong>${item[1]}</strong></button><div class="reveal-panel" data-panel="${i}" hidden>${item[2] || item[1]}</div>`).join("")}</div></section>`;
+    return `<section class="activity-card activity-${activity.type}"><p class="eyebrow">Interactive</p><h3>${activity.title}</h3><div class="reveal-list">${activity.items.map((item, i) => `<button class="reveal-button" type="button" data-reveal="${i}" aria-expanded="false"><span>${item[0]}</span><strong>${item[1]}</strong></button><div class="reveal-panel" data-panel="${i}" hidden>${item[2] || item[1]}</div>`).join("")}</div></section>`;
   }
   if (activity.type === "ladder") {
     return `<section class="activity-card"><p class="eyebrow">Interactive</p><h3>${activity.title}</h3><div class="promotion-ladder">${activity.items.map((item) => `<div><span>${item[0]}</span><strong>${item[1]}</strong><small>${item[2]}</small></div>`).join("")}</div></section>`;

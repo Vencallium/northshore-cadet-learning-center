@@ -301,6 +301,8 @@ h3 { font-size: 1.15rem; }
 .reveal-list { display: grid; gap: .45rem; }
 .reveal-button { display: grid; grid-template-columns: 80px 1fr; gap: 1rem; width: 100%; padding: 1rem; border: 1px solid var(--line); border-radius: .65rem; background: var(--surface-2); text-align: left; cursor: pointer; }
 .reveal-button span { color: var(--red-600); font-weight: 900; }
+.activity-hierarchy .reveal-button { grid-template-columns: minmax(310px, 44%) minmax(0, 1fr); }
+.activity-hierarchy .reveal-button span { white-space: nowrap; }
 .reveal-panel { margin: -.25rem .65rem .4rem; padding: .8rem 1rem 1rem; border-left: 2px solid var(--blue-500); color: var(--muted); }
 .promotion-ladder { display: grid; gap: .55rem; }
 .promotion-ladder div { display: grid; grid-template-columns: 86px 1fr auto; align-items: center; gap: 1rem; padding: .9rem 1rem; border-radius: .65rem; background: var(--surface-2); }
@@ -491,6 +493,8 @@ h3 { font-size: 1.15rem; }
   .lesson-outline { grid-template-columns: 1fr; }
   .lesson-outline > span, .lesson-outline .quiz-link { grid-column: auto; }
   .lesson-cards, .resource-grid, .glossary-grid { grid-template-columns: 1fr; }
+  .activity-hierarchy .reveal-button { grid-template-columns: 1fr; gap: .3rem; }
+  .activity-hierarchy .reveal-button span { white-space: normal; }
   .promotion-ladder div { grid-template-columns: 70px 1fr; }
   .promotion-ladder small { grid-column: 2; }
   .lesson-nav, .progress-actions { align-items: stretch; flex-direction: column; }
